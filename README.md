@@ -90,35 +90,22 @@ hallumap/
 
 ## 题库
 
-题目存放在 `hallumap/datasets/questions/`，按领域分为 JSON 文件：
+题目来自三个权威公开数据集，共 **1740 道**经过人工校验的题目：
 
-| 领域 | 文件 | 题数 |
-|------|------|------|
-| 历史 | `history.json` | 30 |
-| 科学 | `science.json` | 30 |
-| 数学 | `math.json` | 30 |
-| 计算机 | `cs.json` | 30 |
-| 文学 | `literature.json` | 20 |
-| 地理 | `geography.json` | 20 |
-| 常识 | `common.json` | 20 |
-| **合计** | | **180** |
+| 数据集 | 来源 | 题数 | 特点 |
+|--------|------|------|------|
+| [HalluQA](https://github.com/OpenMOSS/HalluQA) | 复旦大学 MOSS 团队 | 450 | 中文幻觉评测，正确/错误答案配对 |
+| [TruthfulQA](https://github.com/sylinrl/TruthfulQA) | Anthropic/牛津大学 | 790 | 对抗性设计，37 个类别，专门诱导 AI 说出"听起来对但实际错"的答案 |
+| [HaluEval](https://github.com/RUCAIBox/HaluEval) | 中国人民大学 | 500 | 正确答案与幻觉答案配对，知识问答场景 |
 
-题目格式：
+**为什么用这些数据集而不是 AI 生成的题？**
+- TruthfulQA 是对抗性设计——题目故意选那些 AI 最容易编造答案的领域（误区、阴谋论、法律、健康等）
+- HalluQA 专门测试中文 LLM 的幻觉行为，有 450 道人工标注的题目
+- HaluEval 的每道题都有"正确答案 vs AI 编造的答案"配对，直接暴露幻觉模式
+
+题目存放在 `hallumap/datasets/questions/`：
 
 ```json
-{
-  "id": "hist_001",
-  "domain": "history",
-  "subdomain": "中国史",
-  "question": "秦始皇统一六国的年份是？",
-  "question_type": "choice",
-  "options": ["A. 公元前230年", "B. 公元前221年", "C. 公元前210年", "D. 公元前206年"],
-  "answer": "B",
-  "answer_aliases": ["公元前221年", "221BC"],
-  "difficulty": "easy",
-  "hallucination_type": "numerical",
-  "source": "《史记·秦始皇本纪》"
-}
 ```
 
 ## 幻觉分类体系
