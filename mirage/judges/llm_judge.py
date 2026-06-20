@@ -3,7 +3,7 @@
 import json
 import re
 
-from hallumap.core.model import AIModel
+from mirage.core.model import AIModel
 
 _JUDGE_PROMPT = """你是一个严格的评判者。请判断以下回答是否正确。
 

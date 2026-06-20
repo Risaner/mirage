@@ -2,10 +2,10 @@
 
 import pytest
 
-from hallumap.judges.exact_match import ExactMatchJudge
-from hallumap.judges.fuzzy_match import FuzzyMatchJudge
-from hallumap.judges.regex_judge import RegexJudge
-from hallumap.judges import judge_answer
+from mirage.judges.exact_match import ExactMatchJudge
+from mirage.judges.fuzzy_match import FuzzyMatchJudge
+from mirage.judges.regex_judge import RegexJudge
+from mirage.judges import judge_answer
 
 
 # ── ExactMatchJudge ──────────────────────────────────────────────

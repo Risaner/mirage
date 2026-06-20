@@ -1,4 +1,4 @@
-# HalluMap
+# Mirage
 
 > 一行命令测试任何 AI 模型的幻觉率，热力图展示各领域表现。
 
@@ -17,8 +17,8 @@
 ### 安装
 
 ```bash
-git clone https://github.com/Risaner/hallumap.git
-cd hallumap
+git clone https://github.com/Risaner/mirage.git
+cd mirage
 pip install -e .
 ```
 
@@ -32,33 +32,33 @@ cp config.yaml.example config.yaml
 也可以通过环境变量设置 API Key：
 
 ```bash
-export HALLUMAP_DEEPSEEK_API_KEY="sk-xxx"
-export HALLUMAP_OPENAI_API_KEY="sk-xxx"
+export MIRAGE_DEEPSEEK_API_KEY="sk-xxx"
+export MIRAGE_OPENAI_API_KEY="sk-xxx"
 ```
 
 ### 使用
 
 ```bash
 # 查看帮助
-hallumap --help
+mirage --help
 
 # 测试单个模型
-hallumap test deepseek --limit 10
+mirage test deepseek --limit 10
 
 # 多模型对比
-hallumap compare deepseek qwen --limit 20
+mirage compare deepseek qwen --limit 20
 
 # 查看题库统计
-hallumap dataset stats
+mirage dataset stats
 
 # 从已有结果生成 HTML 报告
-hallumap report results/deepseek_deepseek-chat_20260620.json
+mirage report results/deepseek_deepseek-chat_20260620.json
 ```
 
 ## 架构
 
 ```
-hallumap/
+mirage/
 ├── core/              # 核心引擎
 │   ├── model.py       # AI 模型抽象层
 │   ├── runner.py      # 测试运行器（批量执行）
@@ -103,7 +103,7 @@ hallumap/
 - HalluQA 专门测试中文 LLM 的幻觉行为，有 450 道人工标注的题目
 - HaluEval 的每道题都有"正确答案 vs AI 编造的答案"配对，直接暴露幻觉模式
 
-题目存放在 `hallumap/datasets/questions/`：
+题目存放在 `mirage/datasets/questions/`：
 
 ```json
 ```
@@ -129,7 +129,7 @@ pip install -r requirements-dev.txt
 pytest tests/ -v
 
 # 查看覆盖率
-pytest tests/ --cov=hallumap --cov-report=term-missing
+pytest tests/ --cov=mirage --cov-report=term-missing
 ```
 
 ## 贡献指南
@@ -140,9 +140,9 @@ pytest tests/ --cov=hallumap --cov-report=term-missing
 4. 推送分支：`git push origin feat/新功能`
 5. 提交 Pull Request
 
-**添加新题库：** 在 `hallumap/datasets/questions/` 下新建 JSON 文件，遵循题目格式即可。
+**添加新题库：** 在 `mirage/datasets/questions/` 下新建 JSON 文件，遵循题目格式即可。
 
-**添加新 Provider：** 在 `hallumap/providers/` 下新建文件，继承 `AIModel` 并注册到 `__init__.py`。
+**添加新 Provider：** 在 `mirage/providers/` 下新建文件，继承 `AIModel` 并注册到 `__init__.py`。
 
 ## License
 

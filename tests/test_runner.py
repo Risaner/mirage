@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from hallumap.core.runner import run_single, run_test_suite, save_results, TestResult
-from hallumap.datasets.loader import Question
+from mirage.core.runner import run_single, run_test_suite, save_results, TestResult
+from mirage.datasets.loader import Question
 
 
 def _make_question(**overrides) -> Question:
@@ -112,7 +112,7 @@ class TestRunTestSuite:
         assert last_call[0][0] == 3  # current
         assert last_call[0][1] == 3  # total
 
-    @patch("hallumap.core.runner.time.sleep")
+    @patch("mirage.core.runner.time.sleep")
     def test_batch_delay(self, mock_sleep, mock_model):
         """达到 batch_size 后休眠"""
         questions = [_make_question(id=f"q_{i}") for i in range(12)]

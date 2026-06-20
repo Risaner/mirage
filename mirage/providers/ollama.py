@@ -1,6 +1,6 @@
 """Ollama Provider — 连接本地 Ollama 服务"""
 
-from hallumap.core.model import AIModel
+from mirage.core.model import AIModel
 
 
 class OllamaProvider(AIModel):

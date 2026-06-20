@@ -5,11 +5,11 @@
 简答题：LLM 辅助评判
 """
 
-from hallumap.judges.exact_match import ExactMatchJudge
-from hallumap.judges.fuzzy_match import FuzzyMatchJudge
-from hallumap.judges.regex_judge import RegexJudge
-from hallumap.judges.llm_judge import LLMJudge
-from hallumap.core.model import AIModel
+from mirage.judges.exact_match import ExactMatchJudge
+from mirage.judges.fuzzy_match import FuzzyMatchJudge
+from mirage.judges.regex_judge import RegexJudge
+from mirage.judges.llm_judge import LLMJudge
+from mirage.core.model import AIModel
 
 _exact = ExactMatchJudge()
 _fuzzy = FuzzyMatchJudge()

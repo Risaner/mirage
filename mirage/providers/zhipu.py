@@ -1,6 +1,6 @@
 """智谱 GLM Provider — OpenAI 兼容接口"""
 
-from hallumap.providers.openai_provider import OpenAIProvider
+from mirage.providers.openai_provider import OpenAIProvider
 
 
 class ZhipuProvider(OpenAIProvider):

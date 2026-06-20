@@ -6,9 +6,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-from hallumap.core.model import AIModel
-from hallumap.datasets.loader import Question
-from hallumap.judges import judge_answer
+from mirage.core.model import AIModel
+from mirage.datasets.loader import Question
+from mirage.judges import judge_answer
 
 
 @dataclass

@@ -1,6 +1,6 @@
 """OpenAI 兼容 Provider — 默认连接 OpenAI 官方 API"""
 
-from hallumap.core.model import AIModel
+from mirage.core.model import AIModel
 
 
 class OpenAIProvider(AIModel):

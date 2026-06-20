@@ -171,7 +171,7 @@ def generate_html_report(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HalluMap — {html.escape(model)} 幻觉报告</title>
+<title>Mirage — {html.escape(model)} 幻觉报告</title>
 <style>
   :root {{
     --color-bg: #fafafa;
@@ -277,7 +277,7 @@ def generate_html_report(
 </head>
 <body>
 <div class="container">
-  <h1>🗺️ HalluMap 幻觉报告</h1>
+  <h1>🗺️ Mirage 幻觉报告</h1>
   <p class="subtitle">模型：{html.escape(model)} | 生成时间：{html.escape(analyzer_results.get("timestamp", ""))}</p>
 
   <div class="stats-grid">

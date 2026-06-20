@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "hallumap"
+name = "mirage"
 version = "0.1.0"
-description = "AI hallucination detector and hallucination map"
+description = "AI hallucination detector - one command to test any model"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -38,15 +38,15 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Risaner/hallumap"
-Repository = "https://github.com/Risaner/hallumap"
-Issues = "https://github.com/Risaner/hallumap/issues"
+Homepage = "https://github.com/Risaner/mirage"
+Repository = "https://github.com/Risaner/mirage"
+Issues = "https://github.com/Risaner/mirage/issues"
 
 [project.scripts]
-hallumap = "hallumap.cli:main"
+mirage = "mirage.cli:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["hallumap"]
+packages = ["mirage"]

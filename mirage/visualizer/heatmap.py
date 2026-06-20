@@ -47,7 +47,7 @@ def generate_heatmap(
 
     # 绿色=高准确率，红色=低准确率
     cmap = mcolors.LinearSegmentedColormap.from_list(
-        "hallumap", ["#d32f2f", "#ff9800", "#4caf50"], N=256
+        "mirage", ["#d32f2f", "#ff9800", "#4caf50"], N=256
     )
     cmap.set_bad(color="#eeeeee")  # NaN 用灰色填充
 

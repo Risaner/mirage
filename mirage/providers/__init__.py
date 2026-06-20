@@ -5,12 +5,12 @@
     answer = model.ask("1+1等于几？")
 """
 
-from hallumap.core.model import AIModel
-from hallumap.providers.openai_provider import OpenAIProvider
-from hallumap.providers.deepseek import DeepSeekProvider
-from hallumap.providers.ollama import OllamaProvider
-from hallumap.providers.qwen import QwenProvider
-from hallumap.providers.zhipu import ZhipuProvider
+from mirage.core.model import AIModel
+from mirage.providers.openai_provider import OpenAIProvider
+from mirage.providers.deepseek import DeepSeekProvider
+from mirage.providers.ollama import OllamaProvider
+from mirage.providers.qwen import QwenProvider
+from mirage.providers.zhipu import ZhipuProvider
 
 
 # Provider 名称 → 类的映射

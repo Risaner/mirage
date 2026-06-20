@@ -4,7 +4,7 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from hallumap.datasets.loader import Question, load_questions
+from mirage.datasets.loader import Question, load_questions
 
 
 class Analyzer:

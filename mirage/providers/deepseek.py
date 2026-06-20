@@ -1,6 +1,6 @@
 """DeepSeek Provider — 连接 DeepSeek API"""
 
-from hallumap.core.model import AIModel
+from mirage.core.model import AIModel
 
 
 class DeepSeekProvider(AIModel):

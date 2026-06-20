@@ -1,6 +1,6 @@
 """通义千问 Provider — OpenAI 兼容接口"""
 
-from hallumap.providers.openai_provider import OpenAIProvider
+from mirage.providers.openai_provider import OpenAIProvider
 
 
 class QwenProvider(OpenAIProvider):

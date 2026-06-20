@@ -1,1 +1,1 @@
-collect_ignore_glob = ["hallumap/*"]
+collect_ignore_glob = ["mirage/*"]

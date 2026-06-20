@@ -4,13 +4,13 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from hallumap.core.model import AIModel
+from mirage.core.model import AIModel
 
 
 @pytest.fixture
 def mock_client():
     """Mock OpenAI client，替换 __init__ 中的 OpenAI 实例。"""
-    with patch("hallumap.core.model.OpenAI") as mock_cls:
+    with patch("mirage.core.model.OpenAI") as mock_cls:
         mock_instance = MagicMock()
         mock_cls.return_value = mock_instance
         yield mock_instance
