@@ -84,7 +84,7 @@ class Config:
         # 输出设置
         output_cfg = raw.get("output", {})
         self.output_format = output_cfg.get("format", self.output_format)
-        self.output_dir = output_cfg.get("output_dir", self.output_dir)
+        self.output_dir = output_cfg.get("dir", output_cfg.get("output_dir", self.output_dir))
 
         # 默认模型
         self.default_model = raw.get("default_model", self.default_model)

@@ -80,9 +80,14 @@ class TestFuzzyMatchJudge:
         assert result["method"] == "containment_alias"
 
     def test_empty_strings(self):
-        """两个空字符串视为匹配"""
+        """空字符串不匹配（幻觉检测中空答案永远是错的）"""
         result = self.judge.judge("", "")
-        assert result["correct"] is True
+        assert result["correct"] is False
+
+    def test_empty_predicted(self):
+        """空预测不匹配"""
+        result = self.judge.judge("", "hello")
+        assert result["correct"] is False
 
     def test_threshold_boundary(self):
         """刚好低于阈值 → 不匹配"""

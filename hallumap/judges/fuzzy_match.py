@@ -26,6 +26,10 @@ class FuzzyMatchJudge:
         pred = predicted.strip()
         exp = expected.strip()
 
+        # 空字符串不能算匹配
+        if not pred or not exp:
+            return {"correct": False, "confidence": 0.0, "method": "fuzzy"}
+
         # 包含关系：一方包含另一方
         if exp in pred or pred in exp:
             return {"correct": True, "confidence": 0.9, "method": "containment"}
