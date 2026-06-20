@@ -1,4 +1,4 @@
-# Python
+﻿# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -36,3 +36,4 @@ Thumbs.db
 
 # Raw dataset downloads
 _datasets_raw/
+

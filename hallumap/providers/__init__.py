@@ -9,12 +9,16 @@ from hallumap.core.model import AIModel
 from hallumap.providers.openai_provider import OpenAIProvider
 from hallumap.providers.deepseek import DeepSeekProvider
 from hallumap.providers.ollama import OllamaProvider
+from hallumap.providers.qwen import QwenProvider
+from hallumap.providers.zhipu import ZhipuProvider
 
 
 # Provider 名称 → 类的映射
 PROVIDERS: dict[str, type[AIModel]] = {
     "openai": OpenAIProvider,
     "deepseek": DeepSeekProvider,
+    "qwen": QwenProvider,
+    "zhipu": ZhipuProvider,
     "ollama": OllamaProvider,
 }
 
