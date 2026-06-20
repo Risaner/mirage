@@ -1,7 +1,7 @@
-# HalluMap Configuration
+# Mirage Configuration
 # Copy this file to config.yaml and fill in your API keys.
 # API keys can also be set via environment variables:
-#   HALLUMAP_OPENAI_API_KEY, HALLUMAP_DEEPSEEK_API_KEY, etc.
+#   MIRAGE_OPENAI_API_KEY, MIRAGE_DEEPSEEK_API_KEY, etc.
 
 providers:
   openai:

@@ -24,7 +24,7 @@ env/
 .coverage
 htmlcov/
 
-# HalluMap runtime
+# Mirage runtime
 results/
 output/
 config.yaml
