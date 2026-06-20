@@ -1,0 +1,40 @@
+# HalluMap Configuration
+# Copy this file to config.yaml and fill in your API keys.
+# API keys can also be set via environment variables:
+#   HALLUMAP_OPENAI_API_KEY, HALLUMAP_DEEPSEEK_API_KEY, etc.
+
+providers:
+  openai:
+    base_url: "https://api.openai.com/v1"
+    api_key: ""
+    model: "gpt-4o-mini"
+
+  deepseek:
+    base_url: "https://api.deepseek.com/v1"
+    api_key: ""
+    model: "deepseek-chat"
+
+  qwen:
+    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    api_key: ""
+    model: "qwen-plus"
+
+  zhipu:
+    base_url: "https://open.bigmodel.cn/api/paas/v4"
+    api_key: ""
+    model: "glm-4-flash"
+
+  ollama:
+    base_url: "http://localhost:11434/v1"
+    api_key: "ollama"
+    model: "llama3"
+
+test:
+  max_retries: 3
+  timeout: 30
+  batch_size: 10
+  delay_seconds: 1.0
+
+output:
+  format: "json,html"
+  dir: "results"
