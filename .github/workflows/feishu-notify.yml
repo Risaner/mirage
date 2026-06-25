@@ -1,0 +1,140 @@
+# GitHub Event → 飞书通知
+# 使用方法：
+# 1. 在目标仓库的 Settings → Secrets 中添加 FEISHU_WEBHOOK_URL
+# 2. 将此文件复制到目标仓库的 .github/workflows/feishu-notify.yml
+# 3. 推送即可生效
+
+name: Feishu Notification
+
+on:
+  issues:
+    types: [opened, closed, reopened]
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [opened, closed, review_requested]
+  push:
+    branches: [main, master]
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send to Feishu
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+        run: |
+          EVENT="${{ github.event_name }}"
+          REPO="${{ github.repository }}"
+          SENDER="${{ github.actor }}"
+          URL="${{ github.event.head_commit.url || github.event.html_url }}"
+          TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
+
+          # 根据事件类型构造消息
+          case "$EVENT" in
+            "issues")
+              ACTION="${{ github.event.action }}"
+              TITLE="${{ github.event.issue.title }}"
+              NUMBER="${{ github.event.issue.number }}"
+              curl -s -X POST "$FEISHU_WEBHOOK_URL" \
+                -H "Content-Type: application/json" \
+                -d "{
+                  \"msg_type\": \"interactive\",
+                  \"card\": {
+                    \"header\": {
+                      \"title\": {\"tag\": \"plain_text\", \"content\": \"📋 Issue ${ACTION}\"},
+                      \"template\": \"$([ \"$ACTION\" = 'opened' ] && echo 'blue' || echo 'green')\"
+                    },
+                    \"elements\": [
+                      {\"tag\": \"div\", \"text\": {\"tag\": \"lark_md\", \"content\": \"**仓库**: ${REPO}\n**Issue #${NUMBER}**: ${TITLE}\n**操作者**: ${SENDER}\n**时间**: ${TIMESTAMP}\"}},
+                      {\"tag\": \"action\", \"actions\": [{\"tag\": \"button\", \"text\": {\"tag\": \"plain_text\", \"content\": \"查看Issue\"}, \"url\": \"${{ github.event.issue.html_url }}\", \"type\": \"primary\"}]}
+                    ]
+                  }
+                }"
+              ;;
+            "pull_request")
+              ACTION="${{ github.event.action }}"
+              TITLE="${{ github.event.pull_request.title }}"
+              NUMBER="${{ github.event.pull_request.number }}"
+              TEMPLATE="blue"
+              [ "$ACTION" = "closed" ] && TEMPLATE="green"
+              curl -s -X POST "$FEISHU_WEBHOOK_URL" \
+                -H "Content-Type: application/json" \
+                -d "{
+                  \"msg_type\": \"interactive\",
+                  \"card\": {
+                    \"header\": {
+                      \"title\": {\"tag\": \"plain_text\", \"content\": \"🔀 PR ${ACTION}\"},
+                      \"template\": \"${TEMPLATE}\"
+                    },
+                    \"elements\": [
+                      {\"tag\": \"div\", \"text\": {\"tag\": \"lark_md\", \"content\": \"**仓库**: ${REPO}\n**PR #${NUMBER}**: ${TITLE}\n**操作者**: ${SENDER}\n**时间**: ${TIMESTAMP}\"}},
+                      {\"tag\": \"action\", \"actions\": [{\"tag\": \"button\", \"text\": {\"tag\": \"plain_text\", \"content\": \"查看PR\"}, \"url\": \"${{ github.event.pull_request.html_url }}\", \"type\": \"primary\"}]}
+                    ]
+                  }
+                }"
+              ;;
+            "push")
+              BRANCH="${GITHUB_REF##*/}"
+              MSG="${{ github.event.head_commit.message }}"
+              # 截断commit message
+              MSG="${MSG:0:100}"
+              curl -s -X POST "$FEISHU_WEBHOOK_URL" \
+                -H "Content-Type: application/json" \
+                -d "{
+                  \"msg_type\": \"interactive\",
+                  \"card\": {
+                    \"header\": {
+                      \"title\": {\"tag\": \"plain_text\", \"content\": \"🚀 Push to ${BRANCH}\"},
+                      \"template\": \"purple\"
+                    },
+                    \"elements\": [
+                      {\"tag\": \"div\", \"text\": {\"tag\": \"lark_md\", \"content\": \"**仓库**: ${REPO}\n**分支**: ${BRANCH}\n**提交者**: ${SENDER}\n**提交信息**: ${MSG}\n**时间**: ${TIMESTAMP}\"}},
+                      {\"tag\": \"action\", \"actions\": [{\"tag\": \"button\", \"text\": {\"tag\": \"plain_text\", \"content\": \"查看提交\"}, \"url\": \"${{ github.event.head_commit.url }}\", \"type\": \"primary\"}]}
+                    ]
+                  }
+                }"
+              ;;
+            "release")
+              TAG="${{ github.event.release.tag_name }}"
+              NAME="${{ github.event.release.name }}"
+              curl -s -X POST "$FEISHU_WEBHOOK_URL" \
+                -H "Content-Type: application/json" \
+                -d "{
+                  \"msg_type\": \"interactive\",
+                  \"card\": {
+                    \"header\": {
+                      \"title\": {\"tag\": \"plain_text\", \"content\": \"🎉 Release ${TAG}\"},
+                      \"template\": \"orange\"
+                    },
+                    \"elements\": [
+                      {\"tag\": \"div\", \"text\": {\"tag\": \"lark_md\", \"content\": \"**仓库**: ${REPO}\n**版本**: ${TAG}\n**名称**: ${NAME}\n**发布者**: ${SENDER}\n**时间**: ${TIMESTAMP}\"}},
+                      {\"tag\": \"action\", \"actions\": [{\"tag\": \"button\", \"text\": {\"tag\": \"plain_text\", \"content\": \"查看Release\"}, \"url\": \"${{ github.event.release.html_url }}\", \"type\": \"primary\"}]}
+                    ]
+                  }
+                }"
+              ;;
+            "issue_comment")
+              TITLE="${{ github.event.issue.title }}"
+              NUMBER="${{ github.event.issue.number }}"
+              BODY="${{ github.event.comment.body }}"
+              BODY="${BODY:0:200}"
+              curl -s -X POST "$FEISHU_WEBHOOK_URL" \
+                -H "Content-Type: application/json" \
+                -d "{
+                  \"msg_type\": \"interactive\",
+                  \"card\": {
+                    \"header\": {
+                      \"title\": {\"tag\": \"plain_text\", \"content\": \"💬 新评论\"},
+                      \"template\": \"wathet\"
+                    },
+                    \"elements\": [
+                      {\"tag\": \"div\", \"text\": {\"tag\": \"lark_md\", \"content\": \"**仓库**: ${REPO}\n**Issue #${NUMBER}**: ${TITLE}\n**评论者**: ${SENDER}\n**内容**: ${BODY}\n**时间**: ${TIMESTAMP}\"}},
+                      {\"tag\": \"action\", \"actions\": [{\"tag\": \"button\", \"text\": {\"tag\": \"plain_text\", \"content\": \"查看评论\"}, \"url\": \"${{ github.event.comment.html_url }}\", \"type\": \"primary\"}]}
+                    ]
+                  }
+                }"
+              ;;
+          esac
